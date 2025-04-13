@@ -1,5 +1,6 @@
 package com.lfpsys.lfpsys_nfe_upload_services.kafka;
 
+import static com.lfpsys.lfpsys_nfe_upload_services.kafka.KafkaTopicNames.NFE_UPLOAD;
 import static org.apache.kafka.clients.producer.ProducerConfig.BOOTSTRAP_SERVERS_CONFIG;
 import static org.apache.kafka.clients.producer.ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG;
 import static org.apache.kafka.clients.producer.ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG;
@@ -21,8 +22,6 @@ import org.springframework.kafka.core.ProducerFactory;
 @Configuration
 public class KafkaConfig {
 
-  public static final String TOPIC_NAME = "nfe_upload";
-
   @Bean
   public KafkaAdmin kafkaAdmin() {
     return new KafkaAdmin(buildMapOfKafkaConfigs());
@@ -30,7 +29,7 @@ public class KafkaConfig {
 
   @Bean
   public NewTopic topicAddition() {
-    return new NewTopic(TOPIC_NAME, 1, (short) 1);
+    return new NewTopic(NFE_UPLOAD, 1, (short) 1);
   }
 
   @Bean
