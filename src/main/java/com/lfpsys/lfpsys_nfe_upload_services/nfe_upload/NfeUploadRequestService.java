@@ -7,6 +7,7 @@ import static com.lfpsys.lfpsys_nfe_upload_services.kafka.KafkaTopicNames.TAX_CA
 import static com.lfpsys.lfpsys_nfe_upload_services.nfe_upload.NfeUploadProcessStatus.COMPLETED;
 import static com.lfpsys.lfpsys_nfe_upload_services.nfe_upload.NfeUploadProcessStatus.ERROR;
 import static com.lfpsys.lfpsys_nfe_upload_services.nfe_upload.NfeUploadProcessStatus.IN_PROGRESS;
+import static com.lfpsys.lfpsys_nfe_upload_services.nfe_upload.NfeUploadProcessType.NFE_UPLOAD;
 import static java.lang.String.format;
 import static java.math.BigDecimal.TEN;
 import static java.time.Duration.ofDays;
@@ -135,7 +136,7 @@ public class NfeUploadRequestService {
     status
         .getProcesses()
         .forEach(nfeUploadProcess -> {
-          if (NfeUploadProcessType.NFE_UPLOAD.equals(nfeUploadProcess.getProcess())) {
+          if (NFE_UPLOAD.equals(nfeUploadProcess.getProcess())) {
             nfeUploadProcess.setStatus(COMPLETED);
           }
         });
@@ -150,7 +151,7 @@ public class NfeUploadRequestService {
     status
         .getProcesses()
         .forEach(nfeUploadProcess -> {
-          if (NfeUploadProcessType.NFE_UPLOAD.equals(nfeUploadProcess.getProcess())) {
+          if (NFE_UPLOAD.equals(nfeUploadProcess.getProcess())) {
             nfeUploadProcess.setStatus(ERROR);
           }
         });

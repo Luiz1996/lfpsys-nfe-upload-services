@@ -19,9 +19,7 @@ public class NfeUploadConsumer {
   }
 
   @KafkaListener(topics = NFE_UPLOAD, groupId = "group_id")
-  public void consumeMessage(ConsumerRecord<String, String> consumerRecord)
-      throws JsonProcessingException, InterruptedException {
-    Thread.sleep(1000);
+  public void consumeMessage(ConsumerRecord<String, String> consumerRecord) throws JsonProcessingException {
     nfeUploadRequestService.processNfeUpload(UUID.fromString(consumerRecord.key()));
   }
 }
