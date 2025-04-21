@@ -142,4 +142,19 @@ public class NfeUploadRequestService {
 
     redisTemplate.opsForValue().set(redisKey, objectMapper.writeValueAsString(status));
   }
+
+  public void processDltNfeUpload(final UUID protocolId) throws JsonProcessingException {
+    final var redisKey = format(REDIS_KEY_PREFIX, protocolId);
+    final var status = objectMapper.readValue(redisTemplate.opsForValue().get(redisKey), NfeUploadStatusDto.class);
+
+    status
+        .getProcesses()
+        .forEach(nfeUploadProcess -> {
+          if (NfeUploadProcessType.NFE_UPLOAD.equals(nfeUploadProcess.getProcess())) {
+            nfeUploadProcess.setStatus(ERROR);
+          }
+        });
+
+    redisTemplate.opsForValue().set(redisKey, objectMapper.writeValueAsString(status));
+  }
 }
