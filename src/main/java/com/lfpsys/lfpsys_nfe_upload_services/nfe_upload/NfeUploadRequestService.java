@@ -22,6 +22,7 @@ import com.lfpsys.lfpsys_nfe_upload_services.kafka.events.NfeUploadEvent;
 import com.lfpsys.lfpsys_nfe_upload_services.kafka.events.ProductsEvent;
 import com.lfpsys.lfpsys_nfe_upload_services.kafka.events.StocksEvent;
 import com.lfpsys.lfpsys_nfe_upload_services.kafka.events.TaxCalculationsEvent;
+import java.time.Duration;
 import java.util.UUID;
 import java.util.stream.Stream;
 import org.slf4j.Logger;
@@ -141,7 +142,7 @@ public class NfeUploadRequestService {
           }
         });
 
-    redisTemplate.opsForValue().set(redisKey, objectMapper.writeValueAsString(status));
+    redisTemplate.opsForValue().set(redisKey, objectMapper.writeValueAsString(status), Duration.ofDays(30));
   }
 
   public void processDltNfeUpload(final UUID protocolId) throws JsonProcessingException {
@@ -156,6 +157,6 @@ public class NfeUploadRequestService {
           }
         });
 
-    redisTemplate.opsForValue().set(redisKey, objectMapper.writeValueAsString(status));
+    redisTemplate.opsForValue().set(redisKey, objectMapper.writeValueAsString(status), Duration.ofDays(30));
   }
 }
